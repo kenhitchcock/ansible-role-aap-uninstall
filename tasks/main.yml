@@ -1,0 +1,27 @@
+---
+
+- name: "Stop the Automation controller service"
+  ansible.builtin.systemd:
+    name: automation-controller
+    state: stopped
+
+- name: "Remove all packages used by AAP."
+  ansible.builtin.yum:
+    name: "{{ item }}"
+    state: absent
+  loop: "{{ aap_list_of_packages }}"
+
+# rpm -e --noscripts PACKAGE_NAME where PACKAGE_NAME is name of the rpm package which ran into scriptlet error
+
+- name: "Delete files used by AAP."
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop: "{{ aap_uninstall_files }}"
+
+
+
+# rpm -qa | grep automation-controller
+#Use yum erase to remove any remaining automation-controller-* packages.
+
+

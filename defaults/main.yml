@@ -1,0 +1,30 @@
+---
+aap_uninstall: true
+aap_uninstall_files:
+  - /etc/nginx
+  - /etc/tower
+  - /var/log/tower
+  - /run/tower
+  - /var/lib/pgsql
+  - /var/lib/awx
+  - /var/lib/automation-platform-bundle
+  - /run/awx*
+  - /etc/security/limits.d/awx.conf
+  - /etc/tmpfiles.d/awx-receptor.conf
+  - /etc/logrotate.d/awx_supervisord
+  - /var/log/supervisor
+  - /tmp/awx-*
+
+aap_list_of_packages:
+  - automation-controller*
+  - ansible-automation-platform*
+  - ansible
+  - supervisor
+  - receptor
+  - receptorctl
+  - nginx
+  - redis*
+  - rh-postgresql12
+  - postgresql
+  - postgresql-server
+
