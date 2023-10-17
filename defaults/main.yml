@@ -1,9 +1,9 @@
 ---
 aap_uninstall: true
+aap_uninstall_remove_nodes_from_db: true
+
 aap_uninstall_files:
   - /etc/nginx
-  - /etc/tower
-  - /var/log/tower
   - /run/tower
   - /var/lib/pgsql
   - /var/lib/awx
@@ -14,6 +14,11 @@ aap_uninstall_files:
   - /etc/logrotate.d/awx_supervisord
   - /var/log/supervisor
   - /tmp/awx-*
+   
+#  - /var/log/tower
+
+# If the following is deleted, the uninstalled system will not be reinstalled due to the certificates changing.
+#  - /etc/tower
 
 aap_list_of_packages:
   - automation-controller*
@@ -22,9 +27,10 @@ aap_list_of_packages:
   - supervisor
   - receptor
   - receptorctl
-  - nginx
+  - nginx*
   - redis*
   - rh-postgresql12
   - postgresql
   - postgresql-server
+  - python39*
 

@@ -1,5 +1,11 @@
 ---
 
+- name: "Remove node from database"
+  shell: |
+    echo "Remove from database"
+  when: 
+    - aap_uninstall_remove_nodes_from_db
+
 - name: "Stop the Automation controller service"
   ansible.builtin.systemd:
     name: automation-controller
@@ -19,6 +25,17 @@
     state: absent
   loop: "{{ aap_uninstall_files }}"
 
+- name: "Find all repository files"
+  ansible.builtin.find:
+    paths: /etc/yum.repos.d/
+    patterns: "*automation-platform*"
+  register: find_results
+
+- name: "Remove all the repository files"
+  ansible.builtin.file:
+    path: "{{ item['path'] }}"
+    state: absent
+  with_items: "{{ find_results['files'] }}"
 
 
 # rpm -qa | grep automation-controller
